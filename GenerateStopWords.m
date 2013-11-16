@@ -1,7 +1,7 @@
 
-outputfile = 'C:\Users\temuge_ez\Documents\MIT\6.867MovieReview\stopwords.mat';
+outputfile = 'stopwords.mat';
 stopWordsFile = 'stopwords.txt';
-numOfStopWords = 174;
+numOfStopWords = 175;
 stopWords = cell(1,numOfStopWords);
 
 fid = fopen(stopWordsFile);
