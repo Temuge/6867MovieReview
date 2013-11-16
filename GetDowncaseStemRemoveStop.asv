@@ -11,13 +11,23 @@ a=lower([a{:}]);
 reducedLength = size(a,2) - sum(Lia);
 output  = cell(1,reducedLength);
 j=1;
-for i=1:size(a,2),
-    if Lia(i)==0,        
-        output(1,j)= a(i);        
+for i=1:reducedLength,
+    if Lia(i)==0,
+        word = a(i);
+        if ~IsStopWord(word),
+            output(1,j)= a(i);
+        end
         j = j+1;
     end
     
 end
+
+
 end
 
+function [isStopWord] = IsStopWord(word),
+
+isStopWord = false;
+
+end
 
