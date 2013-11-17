@@ -3,7 +3,7 @@
 %       the dimension of the feature vector
 %   y:  a vector of size Nx1 of 1 (if it is a positive example) or -1
 %       if it is a negative example
-
+%
 %   kernel_function:  Kernel function svmtrain uses to map the training data 
 %                   into kernel space. The default kernel function is the 
 %                   dot product. 
@@ -18,7 +18,7 @@ function [svm_struct] = svm_train(X, y, varargin)
     p = inputParser;
     
     checkY = @(y) (isnumeric(y) || ischar(y)) && (size(y, 2) == 1);
-    checkX = @(X) (isnumeric(X) || ischar(X));
+    checkX = @(X) (isnumeric(X));
     
     defaultShowPlot = true;
     checkShowPlot = @(x) ((x == true) || (x == false));

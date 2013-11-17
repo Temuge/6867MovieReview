@@ -1,4 +1,3 @@
-% Input
 
 function [predict] = svm_classify(svm_struct, x, varargin)
 
