@@ -1,4 +1,4 @@
-function [ topTerms ] = findTopFeatureTerms( Dgood, Dbad, M, N, k, words )
+function [ topTerms, tfIdf ] = findTopFeatureTerms( Dgood, Dbad, M, N, k, words )
 %UNTITLED6 Summary of this function goes here
 %   Dgood = data of good reviews
 %   Dbad = data of bad reviews
@@ -14,9 +14,11 @@ badIdf = BuildIdf(words, Dbad);
 tfIdfGood = BuildTfIdf( Dgood, badIdf, N, M );
 tfIdfBad = BuildTfIdf( Dbad, goodIdf, N, M );
 
-goodSortedTerms = sort(sum(tfIdfGood,2),'descend');
-badSortedTerms = sort(sum(tfIdfBad,2),'descend');
+[tfidfgood, goodSortedTerms] = sort(sum(tfIdfGood,2),'descend');
+[tfidfbad, badSortedTerms] = sort(sum(tfIdfBad,2),'descend');
 
 topTerms = [goodSortedTerms(1:k) badSortedTerms(1:k)];
+tfIdf = [ tfidfgood tfidfbad];
+
 end
 
