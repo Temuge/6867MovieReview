@@ -1,5 +1,5 @@
 function [ tfIdf ] = TfIdf( i, text , IDF, method)
-%UNTITLED3 Summary of this function goes here
+%TfIdf finds TfIdf function
 %   i - index of the word
 %   text - text as a vector of integers
 %   IDF - idf table
@@ -24,8 +24,8 @@ elseif strcmp(method,'logarithmic'),
     tf = log(ft +1);
 elseif strcmp(method,'augmented')
     maxTf = tf;
-    for i=1:size(text,1),
-        next = sum(text(i) == text);
+    for i=1:size(text,2),
+        next = sum(text(1,i) == text);
         if next > maxTf,
             maxTf = next;
         end
