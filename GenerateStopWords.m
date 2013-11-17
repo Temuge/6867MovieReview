@@ -1,4 +1,4 @@
-
+ %userpath('C:\Users\temuge_ez\Documents\MIT\6.867MovieReview');
 outputfile = 'stopwords.mat';
 stopWordsFile = 'stopwords.txt';
 numOfStopWords = 175;

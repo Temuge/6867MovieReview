@@ -6,6 +6,10 @@ load('stopwords.mat');
 
 a=regexp(text,'(\w+)','tokens');
 a=lower([a{:}]);
+if size(a,1) ==0,
+    output =[];
+    return
+end
 
 [Lia,~] = ismember(a, stopWords);
 
