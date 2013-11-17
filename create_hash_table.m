@@ -18,6 +18,7 @@ function [word2int_table, data_mat, int2word_table] = create_hash_table(data_mat
     % Process the summary and text to convert them into an integer
     % representation
     for i = 1:data_length;
+        fprintf('Data %d\n', i);
         s = data_mat(i);
         % Process the summary
         if create_int2word_table

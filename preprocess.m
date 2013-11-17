@@ -1,5 +1,7 @@
 %% Preprocess the document
 
+clear all;
+
 filename = 'movies.txt';
 
 %% READING DATA
@@ -9,7 +11,7 @@ filename = 'movies.txt';
 length = 500;    
 [data_mat] = read_file(filename, length, @isDataGood);
 
-% Save the data_mat
+%% Save the data_mat
 fprintf('Saving data_mat\n');
 outputfile = 'movies_raw.mat';
 save(outputfile, 'data_mat', '-v7.3');
@@ -20,7 +22,7 @@ save(outputfile, 'data_mat', '-v7.3');
 % Preprocess the data, convert summary and text into the integer
 % representation
 create_int2word_table = 1;
-[word2int_table, data_mat, int2word_table] = create_hash_table(data_mat, create_int2word_table);
+[word2int_table, hashed_data, int2word_table] = create_hash_table(data_mat, create_int2word_table);
 
 % Save the hash table
 fprintf('Saving the word2int_table\n');
