@@ -23,13 +23,16 @@ if fid == -1
 end
 
 length = 7911684; % Number of reviews in file movie.txt
-length = 2;
+%length = 10;
 data_mat = repmat(struct('productId',0,'userId',0,'profileName',0,'helpfulness',zeros(2,1), ...
     'score',0,'time',0,'summary',[],'text',[]), length, 1);
 
 tline = fgets(fid);
 index = 1;
 while ischar(tline) && (index <= length);
+    if mod(index, 100) == 0
+        fprintf('Review %d\n', index);
+    end
     s = data_mat(index); % Struct to contain the data    
     % Parse the review data
     
@@ -60,11 +63,15 @@ while ischar(tline) && (index <= length);
     
     % Read summary
     tline = fgets(fid);
-    s.summary = parser(tline, regex_list(7));
+    summary = parser(tline, 'review/summary: ');
+    % Preprocess the string
+    s.summary = GetDowncaseStemRemoveStop(summary);
     
     % Read text
     tline = fgets(fid);
-    s.text = parser(tline, regex_list(8));
+    text = parser(tline, 'review/text: ');
+    % Preprocess the string
+    s.text = GetDowncaseStemRemoveStop(text);
     
     % Read empty line
     fgets(fid);
@@ -77,5 +84,11 @@ while ischar(tline) && (index <= length);
     tline = fgets(fid);
 end
 
+% Close the file
 fclose(fid);
+
+fprintf('Saving data_mat\n');
+outputfile = 'movies_raw.mat';
+save(outputfile, 'data_mat');
+
 
