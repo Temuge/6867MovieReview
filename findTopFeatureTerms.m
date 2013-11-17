@@ -7,23 +7,45 @@ function [ topTerms, tfIdf ] = findTopFeatureTerms( Dgood, Dbad, M, N, k, words 
 %   k   = Number of top Terms in each cluster
 %   words = Indexes of entire word collections
 
+outputFile = 'tfIdfData.mat';
 
-goodIdf = BuildIdf(words, Dgood );
-badIdf = BuildIdf(words, Dbad);
+%% Build IDf for each words for good and bad clusters
+disp('building idf...');
+%T.goodIdf = BuildIdf(words, Dgood );
+%T.badIdf = BuildIdf(words, Dbad);
+
+
+%% Building tf-idf- half for good, bad
+disp('building tfidf ...');
+
+%T.tfIdfGood = BuildTfIdf( Dgood, words, T.badIdf, N, M );
+%T.tfIdfBad = BuildTfIdf( Dbad, words, T.goodIdf, N, M );
+
+load(outputFile);
+
+%% sort the words according good and bad terms
+disp('sorting...');
+%[~, goodSortedTerms] = sort(sum(T.tfIdfGood,2),'descend');
+%[~, badSortedTerms] = sort(sum(T.tfIdfBad,2),'descend');
+
+%T.topTerms = [goodSortedTerms(1:k); goodSortedTerms(N-k+1:N)];
 
 
 
-tfIdfGood = BuildTfIdf( Dgood, badIdf, N, M );
-tfIdfBad = BuildTfIdf( Dbad, goodIdf, N, M );
+%% build actual idf
+disp('building entire idf');
+T.entireIdf = BuildIdf(T.topTerms', [Dgood; Dbad]);
+numel(T.entireIdf)
+entireTfIdf = BuildTfIdf( [Dgood; Dbad], T.topTerms' , T.entireIdf, 2*k, 2*M );
+T.tfIdf = entireTfIdf;
 
-[~, goodSortedTerms] = sort(sum(tfIdfGood,2),'descend');
-[~, badSortedTerms] = sort(sum(tfIdfBad,2),'descend');
+topTerms = T.topTerms;
+tfIdf = T.tfIdf;
 
-topTerms = [goodSortedTerms(1:k) badSortedTerms(1:k)];
+%% Save data
 
-entireIdf = BuildIdf(words, [Dgood; Dbad]);
-entireTfIdf = BuildTfIdf( [Dgood; Dbad], entireIdf, 2*k, 2*M );
-tfIdf = entireTfIdf;
+save(outputFile, 'T');
+
 
 end
 

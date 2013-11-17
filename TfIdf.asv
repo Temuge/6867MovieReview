@@ -1,4 +1,4 @@
-function [ tfIdf ] = TfIdf( i,words, text , IDF, method)
+function [ tfIdf ] = TfIdf( i,  text , IDF, method)
 %TfIdf finds TfIdf function
 %   i - index of the word
 %   text - text as a vector of integers
@@ -9,7 +9,7 @@ function [ tfIdf ] = TfIdf( i,words, text , IDF, method)
 %           logarithmic
 %           augmented  
 
-ft = sum( words(i) == text);
+ft = sum( i == text);
 tf = -1;
 
 if nargin <4,
@@ -24,8 +24,8 @@ elseif strcmp(method,'logarithmic'),
     tf = log(ft +1);
 elseif strcmp(method,'augmented')
     maxTf = tf;
-    for j=1:size(text,2),
-        next = sum(text(1,j) == text);
+    for i=1:size(text,2),
+        next = sum(text(1,i) == text);
         if next > maxTf,
             maxTf = next;
         end
@@ -33,7 +33,7 @@ elseif strcmp(method,'augmented')
     tf = 0.5 + (0.5+ft)/maxTf;
 end 
 
-tfIdf = tf * IDF(i);
+tfIdf = tf * IDF(words(i));
 
 end
 

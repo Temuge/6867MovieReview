@@ -1,14 +1,24 @@
-function [] = BuildTfIdf( D, IDF, N, M )
+function [t] = BuildTfIdf( D, words, IDF, N, M )
 %UNTITLED5 Summary of this function goes here
+%   t is the N*M matrix of tf-idf values 
 %   IDF = ID table
 %   N   = Number of Words
-%   M   = Number of Documents
+%   M   = Number of Reviews
+%outputFile = 'tfidf.mat';
 
-TfIDf = zeros(N,M);
+t = zeros(N,M);
+
 
 for i=1:N,
     for j=1:M,
-        text = D(j).text;
-        TfIDf (i,j) = TfIdf( i, text , IDF, method);
+        
+        text = [D(j).summary D(j).text];
+        words(i)
+        t (i,j) = TfIdf( words(i), text , IDF);
+    end
+end
+
+%save (outputFile, 'TfIdf');
+
 end
 
