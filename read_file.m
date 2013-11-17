@@ -11,8 +11,16 @@
 %       Rhino did an excellent job and if you like or love doo wop and Rock n Roll you'll LOVE
 %       this DVD !!
 
+% Input:
+%   filename - the filename to read
+%   qualityFunction - a function that return 1 if a data is considered
+%                     good. Return 0 if the data is bad
+%   length - total number of good/bad data that we want. The read_file
+%            function will keep looping until it finds a total of 'length' 
+%            good and bad examples each exactly or until it reaches the end of the file
 
-function [data_mat] = read_file(filename, length)
+
+function [data_mat] = read_file(filename, length, qualityFunction)
     regex_list = {'product/productId: '; 'review/userId: '; 'review/profileName: '; ...
                   'review/helpfulness: '; 'review/score: '; 'review/time: '; ...
                   'review/summary: '; 'review/text: '};
@@ -24,17 +32,21 @@ function [data_mat] = read_file(filename, length)
     end
 
     data_mat = repmat(struct('productId',0,'userId',0,'profileName',0,'helpfulness',zeros(2,1), ...
-        'score',0,'time',0,'summary',[],'text',[]), length, 1);
+        'score',0,'time',0,'summary',[],'text',[]), 2*length, 1);
 
+    good = 1;
+    bad = length + 1; 
+    line_idx = 1;
+    
     tline = fgets(fid);
-    index = 1;
-    while ischar(tline) && (index <= length);
+    while ischar(tline) && ~((good-1 == length) && ((bad-1 == 2*length)));
         %if mod(index, 100) == 0
         %    fprintf('Review %d\n', index);
         %end
-        fprintf('Review %d\n', index);
+        fprintf('Line %d - good: %d, bad: %d\n', line_idx, good-1, bad-1-length);
+        line_idx = line_idx + 1;
         
-        s = data_mat(index); % Struct to contain the data    
+        s = data_mat(1); % Struct to contain the data    
         % Parse the review data
 
         % Read productId
@@ -77,11 +89,20 @@ function [data_mat] = read_file(filename, length)
         % Read empty line
         fgets(fid);
 
+        % Determine if it's a good or bad data
+        quality = qualityFunction(s);
+        
         % Copy the data to the array
-        data_mat(index) = s;
-
+        %fprintf('Review Score: %d\n', s.score);
+        if (quality == 1) && (good <= length)
+            data_mat(good) = s;    
+            good = good + 1;        
+        elseif (quality == 0) && (bad <= 2*length)
+            data_mat(bad) = s;    
+            bad = bad + 1;   
+        end
+        
         % Go to the next review
-        index = index + 1;
         tline = fgets(fid);
     end
 
