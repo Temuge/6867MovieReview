@@ -1,4 +1,4 @@
-function [] = BuildTfIdf( D, IDF, N, M )
+function [TfIdf] = BuildTfIdf( D, IDF, N, M )
 %UNTITLED5 Summary of this function goes here
 %   IDF = ID table
 %   N   = Number of Words
@@ -13,6 +13,7 @@ for i=1:N,
     end
 end
 
-save (outputFile, 'TfIdf');
+%save (outputFile, 'TfIdf');
+
 end
 

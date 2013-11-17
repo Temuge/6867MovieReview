@@ -1,8 +1,9 @@
-function [] = BuildIdf( D , N)
+function [IDF] = BuildIdf(words, D )
 %Build Idf Table
 %   D - whole dataset
 %   N - total number of words
 
+N = size(words,2);
 IDF = zeros(1, N);
 M = size(D,1);
 outputFile = 'idf.mat';
@@ -10,7 +11,7 @@ outputFile = 'idf.mat';
 for i = 1:N
     count = 0;
     for d=1:M,
-        if (ismember(i, D(d).summary)==1 || ismember(i, D(d).text)==1),
+        if (ismember(worsd(i), D(d).summary)==1 || ismember(words(i), D(d).text)==1),
             count = count + 1;
         end
     end
@@ -19,7 +20,7 @@ for i = 1:N
 
 end
 %save idf 
-save(outputFile, 'IDF');
+%save(outputFile, 'IDF');
 
 
 end
