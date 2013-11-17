@@ -11,14 +11,19 @@ function [ topTerms, tfIdf ] = findTopFeatureTerms( Dgood, Dbad, M, N, k, words 
 goodIdf = BuildIdf(words, Dgood );
 badIdf = BuildIdf(words, Dbad);
 
+
+
 tfIdfGood = BuildTfIdf( Dgood, badIdf, N, M );
 tfIdfBad = BuildTfIdf( Dbad, goodIdf, N, M );
 
-[tfidfgood, goodSortedTerms] = sort(sum(tfIdfGood,2),'descend');
-[tfidfbad, badSortedTerms] = sort(sum(tfIdfBad,2),'descend');
+[~, goodSortedTerms] = sort(sum(tfIdfGood,2),'descend');
+[~, badSortedTerms] = sort(sum(tfIdfBad,2),'descend');
 
 topTerms = [goodSortedTerms(1:k) badSortedTerms(1:k)];
-tfIdf = [ tfidfgood tfidfbad];
+
+entireIdf = BuildIdf(words, [Dgood; Dbad]);
+entireTfIdf = BuildTfIdf( [Dgood; Dbad], entireIdf, 2*k, 2*M );
+tfIdf = entireTfIdf;
 
 end
 

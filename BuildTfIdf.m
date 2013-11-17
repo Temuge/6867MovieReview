@@ -2,7 +2,7 @@ function [TfIdf] = BuildTfIdf( D, IDF, N, M )
 %UNTITLED5 Summary of this function goes here
 %   IDF = ID table
 %   N   = Number of Words
-%   M   = Number of Documents
+%   M   = Number of Reviews
 outputFile = 'tfidf.mat';
 TfIdf = zeros(N,M);
 
