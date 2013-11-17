@@ -25,10 +25,10 @@ load(outputFile);
 
 %% sort the words according good and bad terms
 disp('sorting...');
-%[~, goodSortedTerms] = sort(sum(T.tfIdfGood,2),'descend');
-%[~, badSortedTerms] = sort(sum(T.tfIdfBad,2),'descend');
+[~, goodSortedTerms] = sort(sum(T.tfIdfGood,2),'descend');
+[~, badSortedTerms] = sort(sum(T.tfIdfBad,2),'descend');
 
-%T.topTerms = [goodSortedTerms(1:k); goodSortedTerms(N-k+1:N)];
+T.topTerms = [goodSortedTerms(1:k); badSortedTerms(1:k)];
 
 
 
