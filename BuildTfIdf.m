@@ -7,13 +7,13 @@ function [t] = BuildTfIdf( D, words, IDF, N, M )
 %outputFile = 'tfidf.mat';
 
 t = zeros(N,M);
-
+weights = [10.0 1.0];
 
 for i=1:N,
     for j=1:M,
         
-        text = [D(j).summary D(j).text];
-        t (i,j) = TfIdf( i, words, text , IDF, 'boolean');
+        %text = [D(j).summary D(j).text];
+        t (i,j) = weights(1)*TfIdf( i, words, D(j).summary , IDF, 'boolean') + weights(2)*TfIdf( i, words, D(j).text , IDF, 'boolean')  ;
     end
 end
 
