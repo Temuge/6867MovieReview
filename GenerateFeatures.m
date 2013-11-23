@@ -1,11 +1,11 @@
 
 %% Variables
-outputFile = 'data.mat';
+outputFile = 'data_1000.mat';
 load('movies_hashed_500.mat');
 %load('tfIdfData.mat');
 M  = 500;
 N  = 8997;
-k=100;
+k=1000;
 Dgood = hashed_data(1:M);
 Dbad = hashed_data(M+1: 2*M);
 words = [1:N];
