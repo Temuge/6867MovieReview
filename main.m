@@ -5,9 +5,8 @@ train_fract = 90; % Fraction of data used for training (in %)
 
 option = statset('MaxIter', 100000);
 C = 1;
-svm_struct = svmtrain(trainX, trainY, 'showplot', false, 'method', 'LS', ...
-    'boxconstraint', C, ...
-    'options', option);
+svm_struct = svm_train(trainX, trainY, 'showplot', false, 'method', 'SMO', ...
+    'boxconstraint', C, 'options', option);
 
 [~, error] = svm_classify(trainY, svm_struct, trainX, 'showplot', false);
 fprintf('\nNumber of prediction error on the training data: %.2f percent\n', error);
