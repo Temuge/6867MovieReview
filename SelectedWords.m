@@ -1,0 +1,33 @@
+function [ selectedWords ] = SelectedWords( dic )
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+
+selectedWords = zeros(1,2);
+
+% good
+selectedWords (1,1) = dic('great');
+selectedWords (1,2) = dic('excel');
+selectedWords (1,3) = dic('brilliant');
+selectedWords (1,4) = dic('phenomen');
+selectedWords (1,5) = dic('fantast');
+selectedWords (1,6) = dic('cool');
+selectedWords (1,7) = dic('awesom');
+selectedWords (1,8) = dic('thrill');
+selectedWords (1,9) = dic('move');
+selectedWords (1,10) = dic('excit');
+
+%bad
+selectedWords (1,11) = dic('bad');
+selectedWords (1,12) = dic('aw');
+selectedWords (1,13) = dic('unwatch');
+selectedWords (1,13) = dic('hideou');
+selectedWords (1,15) = dic('suck');
+selectedWords (1,16) = dic('bore');
+selectedWords (1,17) = dic('stupid');
+selectedWords (1,18) = dic('slow');
+selectedWords (1,19) = dic('waste');
+selectedWords (1,20) = dic('clich');
+
+
+end
+

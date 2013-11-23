@@ -12,7 +12,7 @@ function [ tfIdf ] = TfIdf( i,words, text , IDF, method)
 ft = sum( words(i) == text);
 tf = -1;
 
-if nargin <4,
+if nargin <5,
     tf = ft;
 elseif  strcmp(method,'boolean'),
     if ft >0 ,

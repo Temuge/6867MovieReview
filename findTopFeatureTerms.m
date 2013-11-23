@@ -6,7 +6,7 @@ function [ topTerms, tfIdf ] = findTopFeatureTerms( Dgood, Dbad, M, N, k, words 
 %   M   = Number of Documents in each good and bad clusters
 %   k   = Number of top Terms in each cluster
 %   words = Indexes of entire word collections
-
+load('word2int_table_500.mat');
 outputFile = 'tfIdfData.mat';
 
 %% Build IDf for each words for good and bad clusters
@@ -21,7 +21,7 @@ disp('building tfidf ...');
 T.tfIdfGood = BuildTfIdf( Dgood, words, T.badIdf, N, M );
 T.tfIdfBad = BuildTfIdf( Dbad, words, T.goodIdf, N, M );
 
-%load(outputFile);
+load(outputFile);
 
 %% sort the words according good and bad terms
 disp('sorting...');
@@ -30,6 +30,7 @@ disp('sorting...');
 
 T.topTerms = [goodSortedTerms(1:k); badSortedTerms(1:k)];
 
+%T.topTerms = SelectedWords( word2int_table )';
 
 
 %% build actual idf
