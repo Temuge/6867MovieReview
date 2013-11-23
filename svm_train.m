@@ -37,7 +37,7 @@ function [svm_struct] = svm_train(X, y, varargin)
     validMethod = {'LP', 'QP', 'SMO'};
     checkMethod = @(x) any(validatestring(x, validMethod));
     
-    defaultOptions = statset('MaxIter', 15000, 'Display', off);
+    defaultOptions = statset('MaxIter', 15000, 'Display', 'off');
     checkOptions = @(x) (true);
     
     % Required parameter
