@@ -1,4 +1,4 @@
-load('data_10.mat');
+load('data_100_summary.mat');
 
 train_fract = 90; % Fraction of data used for training (in %)
 [trainX, trainY, testX, testY] = divide_data(Data.X, Data.Y, train_fract);
