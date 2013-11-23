@@ -8,7 +8,7 @@ filename = 'movies.txt';
 
 % Read the data from the file
 %length = 7911684; % Number of reviews in file movie.txt
-length = 500;    
+length = 10000;    
 [data_mat] = read_file(filename, length, @isDataGood);
 
 %% Save the data_mat

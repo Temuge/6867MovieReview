@@ -33,6 +33,13 @@ function [svm_struct] = svm_train(X, y, varargin)
     defaultAutoScale = true;
     checkAutoScale = @(x) ((x == true) || (x == false));
 
+    defaultMethod = 'LP';
+    validMethod = {'LP', 'QP', 'SMO'};
+    checkMethod = @(x) any(validatestring(x, validMethod));
+    
+    defaultOptions = statset('MaxIter', 15000, 'Display', off);
+    checkOptions = @(x) (true);
+    
     % Required parameter
     addRequired(p, 'y', checkY);
     addRequired(p, 'X', checkX);
@@ -44,20 +51,23 @@ function [svm_struct] = svm_train(X, y, varargin)
     addParameter(p, 'rbf_sigma', defaultRbfSigma, @isnumeric);
     addParameter(p, 'boxconstraint', defaultBoxConstraint, @isnumeric);
     addParameter(p, 'autoscale', defaultAutoScale, checkAutoScale);
+    addParameter(p, 'method', defaultMethod, checkMethod);
+    addParameter(p, 'options', defaultOptions, checkOptions);
     
     parse(p, y, X, varargin{:});
     
     if strcmpi(p.Results.kernel_function, 'polynomial')
         svm_struct = svmtrain(X, y, 'showplot', p.Results.showplot, 'kernel_function', p.Results.kernel_function, ...
             'polyorder', p.Results.polyorder, 'boxconstraint', p.Results.boxconstraint, ...
-            'autoscale', p.Results.autoscale);
+            'autoscale', p.Results.autoscale, 'method', p.Results.method, 'options', p.Results.options);
         
     elseif strcmpi(p.Results.kernel_function, 'rbf')
         svm_struct = svmtrain(X, y, 'showplot', p.Results.showplot, 'kernel_function', p.Results.kernel_function, ...
             'rbf_sigma', p.Results.rbf_sigma, 'boxconstraint', p.Results.boxconstraint, ...
-            'autoscale', p.Results.autoscale);
+            'autoscale', p.Results.autoscale, 'method', p.Results.method, 'options', p.Results.options);
     else
         svm_struct = svmtrain(X, y, 'showplot', p.Results.showplot, 'kernel_function', p.Results.kernel_function, ...
-            'boxconstraint', p.Results.boxconstraint, 'autoscale', p.Results.autoscale);
+            'boxconstraint', p.Results.boxconstraint, 'autoscale', p.Results.autoscale, 'method', p.Results.method, ...
+            'options', p.Results.options);
     end
 end
