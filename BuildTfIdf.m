@@ -7,7 +7,7 @@ function [t] = BuildTfIdf( D, words, IDF, N, M )
 %outputFile = 'tfidf.mat';
 
 t = zeros(N,M);
-weights = [10.0 1.0];
+weights = [1.0 0.0];
 
 for i=1:N,
     for j=1:M,

@@ -1,6 +1,6 @@
 
 %% Variables
-outputFile = 'data_100_weighted.mat';
+outputFile = 'data_100_summarry.mat';
 load('movies_hashed_500.mat');
 %load('tfIdfData.mat');
 M  = 500;
