@@ -11,15 +11,15 @@ outputFile = 'tfIdfData.mat';
 
 %% Build IDf for each words for good and bad clusters
 disp('building idf...');
-T.goodIdf = BuildIdf(words, Dgood );
-T.badIdf = BuildIdf(words, Dbad);
+%T.goodIdf = BuildIdf(words, Dgood );
+%T.badIdf = BuildIdf(words, Dbad);
 
 
 %% Building tf-idf- half for good, bad
 disp('building tfidf ...');
 
-T.tfIdfGood = BuildTfIdf( Dgood, words, T.badIdf, N, M );
-T.tfIdfBad = BuildTfIdf( Dbad, words, T.goodIdf, N, M );
+%T.tfIdfGood = BuildTfIdf( Dgood, words, T.badIdf, N, M );
+%T.tfIdfBad = BuildTfIdf( Dbad, words, T.goodIdf, N, M );
 
 load(outputFile);
 
